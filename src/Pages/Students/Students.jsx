@@ -90,9 +90,9 @@ function Students() {
                 className="border p-2 md:p-3 rounded-lg text-sm md:text-base focus:ring-2 focus:ring-blue-500 outline-none"
               >
                 <option value="">Select Class</option>
-                <option value="9th">9th</option>
-                <option value="10th">10th</option>
-                <option value="11th">11th</option>
+                <option value="9">9th</option>
+                <option value="10">10th</option>
+                <option value="11">11th</option>
               </select>
 
               <select
@@ -112,10 +112,10 @@ function Students() {
                 className="border p-2 md:p-3 rounded-lg text-sm md:text-base focus:ring-2 focus:ring-blue-500 outline-none sm:col-span-2"
               >
                 <option value="">Select Subject</option>
-                <option value="math">Mathematics</option>
-                <option value="english">English</option>
-                <option value="science">Science</option>
-                <option value="computer">Computer</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="English">English</option>
+                <option value="Science">Science</option>
+                <option value="Computer">Computer</option>
               </select>
             </div>
 

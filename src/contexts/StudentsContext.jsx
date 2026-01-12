@@ -10,7 +10,7 @@ export function StudentsProvider({ children }) {
   const [students, setStudents] = useState([])
   const [attendanceRecords, setAttendanceRecords] = useState({})
 
-  // load from localStorage on mount
+  // Load students & attendance from localStorage
   useEffect(() => {
     const s = localStorage.getItem(STUDENTS_KEY)
     const a = localStorage.getItem(ATTENDANCE_KEY)
@@ -20,17 +20,17 @@ export function StudentsProvider({ children }) {
         if (Array.isArray(parsed) && parsed.length) {
           setStudents(parsed)
         } else {
-          // empty or invalid stored data — fall back to defaults
+          // Stored students empty/invalid — using defaults
           setStudents(defaultStudentsData)
           localStorage.setItem(STUDENTS_KEY, JSON.stringify(defaultStudentsData))
         }
       } catch (err) {
-        // corrupted JSON — restore defaults
+        // Corrupted stored students — restoring defaults
         setStudents(defaultStudentsData)
         localStorage.setItem(STUDENTS_KEY, JSON.stringify(defaultStudentsData))
       }
     } else {
-      // no stored students: load default students from JSON file
+      // No stored students — using default data
       setStudents(defaultStudentsData)
       localStorage.setItem(STUDENTS_KEY, JSON.stringify(defaultStudentsData))
     }
@@ -38,6 +38,7 @@ export function StudentsProvider({ children }) {
       try {
         setAttendanceRecords(JSON.parse(a))
       } catch (err) {
+        // Corrupted stored attendance — reset
         setAttendanceRecords({})
         localStorage.setItem(ATTENDANCE_KEY, JSON.stringify({}))
       }
@@ -68,7 +69,7 @@ export function StudentsProvider({ children }) {
 
   function deleteStudent(id) {
     setStudents(prev => prev.filter(s => s.id !== id))
-    // remove student entries from all attendance sessions
+    // Also remove student's attendance records
     setAttendanceRecords(prev => {
       const copy = { ...prev }
       Object.keys(copy).forEach(date => {
@@ -81,7 +82,7 @@ export function StudentsProvider({ children }) {
   }
 
   function saveAttendance(dateStr, attendanceArray, meta = {}) {
-    // attendanceArray: [{ studentId, status: 'present'|'absent' }]
+    // attendanceArray: [{ studentId, status }]
     // meta: { className, section, subject }
     setAttendanceRecords(prev => {
       const sessions = prev[dateStr] ? [...prev[dateStr]] : []
@@ -107,17 +108,38 @@ export function StudentsProvider({ children }) {
     return attendanceRecords[dateStr] || []
   }
 
+  // Normalize class/subject values (accepts variants like "10th" or "math")
+  function normalizeClassName(v) {
+    if (!v) return ''
+    return v.toString().trim().toLowerCase().replace(/th$/,'')
+  }
+  function normalizeSubject(v) {
+    if (!v) return ''
+    const x = v.toString().trim().toLowerCase()
+    if (x === 'math') return 'mathematics'
+    if (x === 'comp') return 'computer'
+    return x
+  }
+
   function findSession(dateStr, filters = {}) {
     const sessions = getSessionsByDate(dateStr)
-    return sessions.find(s =>
-      (!filters.className || s.className === filters.className) &&
-      (!filters.section || s.section === filters.section) &&
-      (!filters.subject || s.subject === filters.subject)
-    )
+    return sessions.find(s => {
+      const sc = normalizeClassName(s.className)
+      const fc = normalizeClassName(filters.className)
+      const ss = (s.section || '').toString().trim().toLowerCase()
+      const fs = (filters.section || '').toString().trim().toLowerCase()
+      const ssub = normalizeSubject(s.subject)
+      const fsub = normalizeSubject(filters.subject)
+
+      const classMatch = !filters.className || sc === fc
+      const sectionMatch = !filters.section || ss === fs
+      const subjectMatch = !filters.subject || ssub === fsub
+      return classMatch && sectionMatch && subjectMatch
+    })
   }
 
   function getAttendanceByDate(dateStr, filters = null) {
-    // backward compatible: if filters provided, return records for matching session, else return flattened records
+    // If filters provided, return that session's records; otherwise return all records for date
     if (filters) {
       const s = findSession(dateStr, filters)
       return s ? s.records : []
@@ -127,7 +149,7 @@ export function StudentsProvider({ children }) {
   }
 
   function getAttendanceSessions(filters = {}) {
-    // filters may include date, className, section, subject — return matching sessions with date
+    // Return sessions matching optional filters (date, className, section, subject)
     const res = []
     Object.keys(attendanceRecords).forEach(date => {
       attendanceRecords[date].forEach(session => {

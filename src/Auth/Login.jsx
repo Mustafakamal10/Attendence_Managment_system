@@ -41,10 +41,10 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-900 via-blue-800 to-indigo-900 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-linear-to-br from-blue-900 via-blue-800 to-indigo-900 flex items-center justify-center px-4 py-6 sm:py-8">
       <div className="w-full max-w-md">
         {/* Logo/Title */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6 md:mb-8">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
             Welcome Back
           </h1>
@@ -55,7 +55,7 @@ function Login() {
 
         {/* Login Card */}
         <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
             {/* Error Message */}
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
@@ -115,7 +115,7 @@ function Login() {
           </form>
 
           {/* Signup Link */}
-          <div className="mt-6 text-center">
+          <div className="mt-4 md:mt-6 text-center">
             <p className="text-gray-600 text-sm md:text-base">
               Don't have an account?{' '}
               <Link to="/signup" className="text-blue-600 font-semibold hover:text-blue-700">
@@ -126,7 +126,7 @@ function Login() {
         </div>
 
         {/* Footer */}
-        <p className="text-center text-blue-200 text-xs md:text-sm mt-6">
+        <p className="text-center text-blue-200 text-xs md:text-sm mt-4 md:mt-6">
           © 2025 Attendance Management System. All rights reserved.
         </p>
       </div>
