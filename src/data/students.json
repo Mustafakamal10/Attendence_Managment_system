@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "roll": 1,
+    "name": "Ali Khan",
+    "class": "10",
+    "section": "A",
+    "subjects": ["Math", "Physics", "Chemistry", "English"],
+    "subject": "math"
+  },
+  {
+    "id": 2,
+    "roll": 2,
+    "name": "Sara Ahmed",
+    "class": "9",
+    "section": "B",
+    "subjects": ["Biology", "Chemistry", "English", "Urdu"],
+    "subject": "biology"
+  },
+  {
+    "id": 3,
+    "roll": 3,
+    "name": "Usman Shah",
+    "class": "10",
+    "section": "C",
+    "subjects": ["Math", "Computer", "Physics"],
+    "subject": "math"
+  },
+  {
+    "id": 4,
+    "roll": 4,
+    "name": "Ayesha Noor",
+    "class": "8",
+    "section": "A",
+    "subjects": ["Math", "Science", "Islamiyat", "English"],
+    "subject": "math"
+  }
+]
