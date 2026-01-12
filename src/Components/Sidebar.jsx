@@ -78,7 +78,7 @@ const Sidebar = () => {
       <div
         className={`
           fixed top-0 left-0 h-screen bg-[#0D1224] text-white
-          flex flex-col py-4 md:py-6 justify-between
+          flex flex-col py-4 md:py-6 justify-between overflow-y-auto pb-6
           rounded-r-2xl shadow-2xl
           transition-transform duration-300 ease-in-out
           w-64 z-50
@@ -134,7 +134,7 @@ const Sidebar = () => {
         {/* LOGOUT BUTTON */}
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-4 md:px-6 py-2.5 md:py-3 mx-2 md:mx-3 mb-4 rounded-xl transition-all hover:bg-red-600 text-white"
+          className="flex items-center gap-3 px-4 md:px-6 py-2.5 md:py-3 mx-2 md:mx-3 mb-2 md:mb-4 rounded-xl transition-all hover:bg-red-600 text-white"
         >
           <FiLogOut className="w-5 h-5 md:w-6 md:h-6 flex-shrink-0" />
           <span className="text-sm md:text-base font-medium">Logout</span>
