@@ -5,8 +5,8 @@
     "name": "Ali Khan",
     "class": "10",
     "section": "A",
-    "subjects": ["Math", "Physics", "Chemistry", "English"],
-    "subject": "math"
+    "subjects": ["Mathematics", "Science", "Computer", "English"],
+    "subject": "Mathematics"
   },
   {
     "id": 2,
@@ -14,8 +14,8 @@
     "name": "Sara Ahmed",
     "class": "9",
     "section": "B",
-    "subjects": ["Biology", "Chemistry", "English", "Urdu"],
-    "subject": "biology"
+    "subjects": ["Computer", "Science", "English", "Mathematics"],
+    "subject": "Computer"
   },
   {
     "id": 3,
@@ -23,16 +23,16 @@
     "name": "Usman Shah",
     "class": "10",
     "section": "C",
-    "subjects": ["Math", "Computer", "Physics"],
-    "subject": "math"
+    "subjects":["Computer", "Science", "English", "Mathematics"],
+    "subject": "English"
   },
   {
     "id": 4,
     "roll": 4,
     "name": "Ayesha Noor",
-    "class": "8",
+    "class": "11",
     "section": "A",
-    "subjects": ["Math", "Science", "Islamiyat", "English"],
-    "subject": "math"
+    "subjects": ["Computer", "Science", "English", "Mathematics"],
+    "subject": "Mathematics"
   }
 ]
