@@ -14,13 +14,34 @@ export function StudentsProvider({ children }) {
   useEffect(() => {
     const s = localStorage.getItem(STUDENTS_KEY)
     const a = localStorage.getItem(ATTENDANCE_KEY)
-    if (s) setStudents(JSON.parse(s))
-    else {
-      // load default students from JSON file
+    if (s) {
+      try {
+        const parsed = JSON.parse(s)
+        if (Array.isArray(parsed) && parsed.length) {
+          setStudents(parsed)
+        } else {
+          // empty or invalid stored data — fall back to defaults
+          setStudents(defaultStudentsData)
+          localStorage.setItem(STUDENTS_KEY, JSON.stringify(defaultStudentsData))
+        }
+      } catch (err) {
+        // corrupted JSON — restore defaults
+        setStudents(defaultStudentsData)
+        localStorage.setItem(STUDENTS_KEY, JSON.stringify(defaultStudentsData))
+      }
+    } else {
+      // no stored students: load default students from JSON file
       setStudents(defaultStudentsData)
       localStorage.setItem(STUDENTS_KEY, JSON.stringify(defaultStudentsData))
     }
-    if (a) setAttendanceRecords(JSON.parse(a))
+    if (a) {
+      try {
+        setAttendanceRecords(JSON.parse(a))
+      } catch (err) {
+        setAttendanceRecords({})
+        localStorage.setItem(ATTENDANCE_KEY, JSON.stringify({}))
+      }
+    }
   }, [])
 
   useEffect(() => {
